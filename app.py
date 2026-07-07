@@ -7,7 +7,7 @@ from pages1 import aggregator_tab, chat_tab
 from news_detail import render_news_detail, log_click
 
 # Must be at the top before anything else
-st.set_page_config(page_title=" 🤖 V News  ", layout="wide")
+st.set_page_config(page_title=" 🤖 News  ", layout="wide")
 
 TOPICS = ["Finance", "Sports", "Politics", "Stock", "Technology"]
 COUNTRIES = ["World", "India", "USA", "Canada", "Singapore", "UK"]
@@ -46,12 +46,12 @@ else:
     st.sidebar.success(f"Welcome, {st.session_state.user['username']} 👋")
 
     # Sidebar navigation
-    tab = st.sidebar.radio("📌 Navigation", ["📰 News Aggregator", "💬 Ask with V 🤖", "🗞️ News Feed"])
+    tab = st.sidebar.radio("📌 Navigation", ["📰 News Aggregator", "💬 Ask 🤖", "🗞️ News Feed"])
 
     if tab == "📰 News Aggregator":
         aggregator_tab.render()
 
-    elif tab == "💬 Ask with V 🤖":
+    elif tab == "💬 Ask 🤖":
         print("fetch_grounded_context")
         chat_tab.render()
 

@@ -3,7 +3,7 @@
 import requests
 import os
 
-NEWS_API_KEY = "your actual API key"  # Replace this with your actual API key
+NEWS_API_KEY = "635d28530f843a0aa7afa2a0e22bd7c"  # Replace this with your actual API key
 
 def get_latest_news(country="in", category=None, page_size=5):
     url = "https://newsapi.org/v2/top-headlines"

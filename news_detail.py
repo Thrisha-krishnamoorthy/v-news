@@ -51,16 +51,16 @@ def render_news_detail(news_item, user_id):
     # Main article content
     st.subheader(news_item.get("title", "No Title"))
     
-    # Show source with badge-like styling
+    # Show source with badge-like styling (dark theme compatible)
     st.markdown(f"""
-    <div style="background-color:#f0f2f6;padding:5px 10px;border-radius:5px;display:inline-block;margin-bottom:15px;">
-        <span style="color:#555;font-size:14px;">📰 <a href="{news_item.get('url', '#')}" target="_blank" style="color:#555;text-decoration:none;border-bottom:1px dotted #555;">{news_item.get('source', 'Unknown')}</a> • {news_item.get('country', 'Unknown')}</span>
+    <div style="background-color:rgba(70, 70, 70, 0.2);padding:5px 10px;border-radius:5px;display:inline-block;margin-bottom:15px;">
+        <span style="color:#ffffff;font-size:14px;">📰 <a href="{news_item.get('url', '#')}" target="_blank" style="color:#ffffff;text-decoration:none;border-bottom:1px dotted #ffffff;">{news_item.get('source', 'Unknown')}</a> • {news_item.get('country', 'Unknown')}</span>
     </div>
     """, unsafe_allow_html=True)
     
-    # Description in a card-like container
+    # Description in a card-like container with dark theme
     st.markdown(f"""
-    <div style="background-color:white;padding:15px;border-radius:5px;border:1px solid #eee;margin-bottom:20px;">
+    <div style="background-color:rgba(30, 30, 30, 0.7);padding:15px;border-radius:5px;border:1px solid #444;margin-bottom:20px;color:#ffffff;">
         {news_item.get('description', 'No description available.')}
     </div>
     """, unsafe_allow_html=True)
@@ -157,8 +157,14 @@ def render_news_detail(news_item, user_id):
                         with cols[0]:
                             if j < len(related):
                                 article = related[j]
-                                st.markdown(f"**{article.get('title', 'No Title')}**")
-                                st.caption(f"<a href='{article.get('url', '#')}' target='_blank'>{article.get('source', 'Unknown')}</a> • {article.get('country', 'Unknown')}", unsafe_allow_html=True)
+                                st.markdown(f"""
+                                <div style="background-color:rgba(30, 30, 30, 0.5);padding:10px;border-radius:5px;margin-bottom:10px;">
+                                    <h4 style="color:#ffffff;">{article.get('title', 'No Title')}</h4>
+                                    <p style="color:#aaaaaa;font-size:12px;">
+                                        <a href='{article.get('url', '#')}' target='_blank' style="color:#aaaaaa;">{article.get('source', 'Unknown')}</a> • {article.get('country', 'Unknown')}
+                                    </p>
+                                </div>
+                                """, unsafe_allow_html=True)
                                 if st.button("Read", key=f"rel_semantic_{j}"):
                                     st.session_state.news_detail = article
                                     st.rerun()
@@ -167,8 +173,14 @@ def render_news_detail(news_item, user_id):
                         with cols[1]:
                             if j+1 < len(related):
                                 article = related[j+1]
-                                st.markdown(f"**{article.get('title', 'No Title')}**")
-                                st.caption(f"<a href='{article.get('url', '#')}' target='_blank'>{article.get('source', 'Unknown')}</a> • {article.get('country', 'Unknown')}", unsafe_allow_html=True)
+                                st.markdown(f"""
+                                <div style="background-color:rgba(30, 30, 30, 0.5);padding:10px;border-radius:5px;margin-bottom:10px;">
+                                    <h4 style="color:#ffffff;">{article.get('title', 'No Title')}</h4>
+                                    <p style="color:#aaaaaa;font-size:12px;">
+                                        <a href='{article.get('url', '#')}' target='_blank' style="color:#aaaaaa;">{article.get('source', 'Unknown')}</a> • {article.get('country', 'Unknown')}
+                                    </p>
+                                </div>
+                                """, unsafe_allow_html=True)
                                 if st.button("Read", key=f"rel_semantic_{j+1}"):
                                     st.session_state.news_detail = article
                                     st.rerun()
@@ -212,8 +224,14 @@ def render_news_detail(news_item, user_id):
                             with cols[0]:
                                 if j < len(related):
                                     article = related[j]
-                                    st.markdown(f"**{article.get('title', 'No Title')}**")
-                                    st.caption(f"<a href='{article.get('url', '#')}' target='_blank'>{article.get('source', 'Unknown')}</a> • {article.get('country', 'Unknown')}", unsafe_allow_html=True)
+                                    st.markdown(f"""
+                                    <div style="background-color:rgba(30, 30, 30, 0.5);padding:10px;border-radius:5px;margin-bottom:10px;">
+                                        <h4 style="color:#ffffff;">{article.get('title', 'No Title')}</h4>
+                                        <p style="color:#aaaaaa;font-size:12px;">
+                                            <a href='{article.get('url', '#')}' target='_blank' style="color:#aaaaaa;">{article.get('source', 'Unknown')}</a> • {article.get('country', 'Unknown')}
+                                        </p>
+                                    </div>
+                                    """, unsafe_allow_html=True)
                                     if st.button("Read", key=f"rel_{category}_{j}"):
                                         st.session_state.news_detail = article
                                         st.rerun()
@@ -222,8 +240,14 @@ def render_news_detail(news_item, user_id):
                             with cols[1]:
                                 if j+1 < len(related):
                                     article = related[j+1]
-                                    st.markdown(f"**{article.get('title', 'No Title')}**")
-                                    st.caption(f"<a href='{article.get('url', '#')}' target='_blank'>{article.get('source', 'Unknown')}</a> • {article.get('country', 'Unknown')}", unsafe_allow_html=True)
+                                    st.markdown(f"""
+                                    <div style="background-color:rgba(30, 30, 30, 0.5);padding:10px;border-radius:5px;margin-bottom:10px;">
+                                        <h4 style="color:#ffffff;">{article.get('title', 'No Title')}</h4>
+                                        <p style="color:#aaaaaa;font-size:12px;">
+                                            <a href='{article.get('url', '#')}' target='_blank' style="color:#aaaaaa;">{article.get('source', 'Unknown')}</a> • {article.get('country', 'Unknown')}
+                                        </p>
+                                    </div>
+                                    """, unsafe_allow_html=True)
                                     if st.button("Read", key=f"rel_{category}_{j+1}"):
                                         st.session_state.news_detail = article
                                         st.rerun()

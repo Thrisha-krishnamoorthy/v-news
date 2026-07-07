@@ -26,27 +26,38 @@ def authenticate_user(username, password):
     return None
 
 def save_user_interests(user_id, topics, countries):
+    """
+    Save user interests using a single row per user with comma-separated values
+    """
     conn = get_connection()
     c = conn.cursor()
+    
+    # Convert lists to comma-separated strings
+    topics_str = ",".join(topics) if topics else ""
+    countries_str = ",".join(countries) if countries else ""
+    
+    # Delete any existing entries for this user
     c.execute("DELETE FROM user_interests WHERE user_id = ?", (user_id,))
-    for topic in topics:
-        for country in countries:
-            c.execute("INSERT INTO user_interests (user_id, topic, country) VALUES (?, ?, ?)",
-                      (user_id, topic, country))
+    
+    # Insert a single row with all topics and countries
+    c.execute("INSERT INTO user_interests (user_id, topics, countries) VALUES (?, ?, ?)",
+              (user_id, topics_str, countries_str))
+    
     conn.commit()
     conn.close()
 
-# Fix: Corrected database connection and logic for fetching user interests
+# Get user interests as lists
 def get_user_interests(user_id):
-    conn = get_connection()  # Correct database connection
+    conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT topic, country FROM user_interests WHERE user_id = ?", (user_id,))
-    rows = cursor.fetchall()  # Fetch all rows for the user (topics and countries)
+    cursor.execute("SELECT topics, countries FROM user_interests WHERE user_id = ?", (user_id,))
+    row = cursor.fetchone()
     conn.close()
 
-    if rows:
-        topics = [row[0] for row in rows]  # Extract topics from rows
-        countries = [row[1] for row in rows]  # Extract countries from rows
+    if row:
+        # Convert comma-separated strings back to lists
+        topics = row[0].split(",") if row[0] else []
+        countries = row[1].split(",") if row[1] else []
         return {"topics": topics, "countries": countries}
     return None
 
